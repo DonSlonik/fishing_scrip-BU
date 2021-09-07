@@ -18,7 +18,7 @@ The easiest way to use a script.
 2) on the command line, update the PIP installer
 "python -m pip install --upgrade pip"
 3) install Pycharm Edu https://www.jetbrains.com/en-en/pycharm-edu/
-4) Create a new project in Pycharm.
+4) Run Pycharm as administrator, and create a new project.
 5) Replace the contents of main.py of the newly created project with the main.py script.
 6) If the package after the word IMPORT is underlined in red, then you need to install it - click at the very bottom of Pycharm "Python Packages" - enter the package name in the search bar - click the "Install" button on the right
 7) Two packages have a name that does not match the word after the IMPORT instruction - these are PIL and win32gui - they need to be installed using the names Pillow and pywin32, respectively.
