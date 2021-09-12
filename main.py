@@ -267,7 +267,9 @@ all_dict_1920x1080 = {'Botton_Cast_X': 43, 'Botton_Cast_Y': 27,
                       'monitor': {"left": 0, "top": 0, "width": 1920, "height": 1080},
                       'xy_down_right_monitor': {"left": 1360, "top": 955, "width": 550, "height": 75},
                       'xy_centre_monitor': {"left": 975, "top": 415, "width": 24, "height": 27},
-                      'xy_big_monitor': {"left": 0, "top": 300, "width": 1920, "height": 450}
+                      # пришлось справа подрезать 60 пикселей, так как там если много квестов появляется кнопка
+                      # со стрелкой вниз идентичной стрелке на поплавке
+                      'xy_big_monitor': {"left": 0, "top": 300, "width": (1920-60), "height": 500}
                       }
 
 # пока определяем какой словарь использовать без проверок условий
@@ -421,7 +423,8 @@ while True:
             y = y + step
 
         if flag_find_exclamation_point:
-            print('знак - ' + str(time.time()) +' - '+ str(find_x) + ':' + str(find_y))
+            emp = True
+            #print('знак - ' + str(time.time()) +' - '+ str(find_x) + ':' + str(find_y))
         else:
             if flag_find_arrow:
                 # от координат найденого пикселя отмеряем квадрат будущего точечного поиска
@@ -456,10 +459,11 @@ while True:
                     tmp_start_y = tmp_start_y + 1
 
                 text_arrow = 'FIND'
+                move_speed = 750
                 if big_monitor[arrow_find_y, (arrow_find_x+1)] != color_arrow:
                     # дернуть мышку вверх
                     mouse.press(button='right')
-                    for move in range(750):
+                    for move in range(move_speed):
                         win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, 0, -1, 0, 0)
                         sleep(0.001)
                     mouse.release(button='right')
@@ -467,7 +471,7 @@ while True:
                 elif big_monitor[(arrow_find_y+2), arrow_find_x] != color_arrow:
                     # дернуть мышку вниз
                     mouse.press(button='right')
-                    for move in range(750):
+                    for move in range(move_speed):
                         win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, 0, 1, 0, 0)
                         sleep(0.001)
                     mouse.release(button='right')
@@ -475,7 +479,7 @@ while True:
                 elif big_monitor[(arrow_find_y + 1), (arrow_find_x - 1)] != color_arrow:
                     # дернуть мышку вправо
                     mouse.press(button='right')
-                    for move in range(750):
+                    for move in range(move_speed):
                         win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, 1, 0, 0, 0)
                         sleep(0.001)
                     mouse.release(button='right')
@@ -483,7 +487,7 @@ while True:
                 elif big_monitor[(arrow_find_y + 3), (arrow_find_x + 2)] != color_arrow:
                     # дернуть мышку влево
                     mouse.press(button='right')
-                    for move in range(750):
+                    for move in range(move_speed):
                         win32api.mouse_event(win32con.MOUSEEVENTF_MOVE, -1, 0, 0, 0)
                         sleep(0.001)
                     mouse.release(button='right')
@@ -507,7 +511,7 @@ while True:
 
                 print('стрелка - ' + text_arrow + ' - ' + str(time.time()) + ' - ' + str(find_x) + ':' + str(find_y))
             else:
-                print('NONE - ' + str(time.time()))
+                #print('NONE - ' + str(time.time()))
                 time.sleep(1.5)
                 keyboard.press_and_release('F9')
                 time.sleep(0.5)
